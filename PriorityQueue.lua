@@ -26,7 +26,7 @@
 local floor, setmetatable = math.floor, setmetatable
 
 local function siftup( self, from )
-	local items, priorities, indices, higherpriority = self._items, self._priorities, self._indices, self._higherpriority
+	local items, priorities, indices, higherpriority = self, self._priorities, self._indices, self._higherpriority
 	local index = from
 	local parent = floor( index / 2 )
 	while index > 1 and higherpriority( priorities[index], priorities[parent] ) do
@@ -40,7 +40,7 @@ local function siftup( self, from )
 end
 
 local function siftdown( self, limit )
-	local items, priorities, indices, higherpriority, size = self._items, self._priorities, self._indices, self._higherpriority, self._size
+	local items, priorities, indices, higherpriority, size = self, self._priorities, self._indices, self._higherpriority, self._size
 	for index = limit, 1, -1 do
 		local left = index + index
 		local right = left + 1
@@ -100,7 +100,6 @@ function PriorityQueue.new( priority_or_array )
 	end
 
 	local self = setmetatable( {
-		_items = {},
 		_priorities = {},
 		_indices = {},
 		_size = 0,
@@ -115,7 +114,7 @@ function PriorityQueue.new( priority_or_array )
 end
 
 function PriorityQueue:enqueue( item, priority )
-	local items, priorities, indices = self._items, self._priorities, self._indices
+	local items, priorities, indices = self, self._priorities, self._indices
 	if indices[item] ~= nil then
 		error( 'Item ' .. tostring(indices[item]) .. ' is already in the heap' )
 	end
@@ -130,7 +129,7 @@ function PriorityQueue:remove( item )
 	local index = self._indices[item]
 	if index ~= nil then
 		local size = self._size
-		local items, priorities, indices = self._items, self._priorities, self._indices
+		local items, priorities, indices = self, self._priorities, self._indices
 		indices[item] = nil
 		if size == index then
 			items[size], priorities[size] = nil, nil
@@ -171,7 +170,7 @@ function PriorityQueue:dequeue()
 	
 	assert( size > 0, 'Heap is empty' )
 	
-	local items, priorities, indices = self._items, self._priorities, self._indices
+	local items, priorities, indices = self, self._priorities, self._indices
 	local item, priority = items[1], priorities[1]
 	indices[item] = nil
 
@@ -192,7 +191,7 @@ function PriorityQueue:dequeue()
 end
 
 function PriorityQueue:peek()
-	return self._items[1], self._priorities[1]
+	return self[1], self._priorities[1]
 end
 	
 function PriorityQueue:len()
@@ -204,7 +203,7 @@ function PriorityQueue:empty()
 end
 
 function PriorityQueue:batchenq( iparray )
-	local items, priorities, indices = self._items, self._priorities, self._indices
+	local items, priorities, indices = self, self._priorities, self._indices
 	local size = self._size
 	for i = 1, #iparray, 2 do
 		local item, priority = iparray[i], iparray[i+1]
@@ -217,7 +216,7 @@ function PriorityQueue:batchenq( iparray )
 	end
 	self._size = size
 	if size > 1 then
-		siftdown( self, floor( 0.5 * size ))
+		siftdown( self, floor( size / 2 ))
 	end
 end
 
