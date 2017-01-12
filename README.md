@@ -68,6 +68,7 @@ local security = PriorityQueue{
 	'moderate-', {level = 3}, 
 	'moderate+', {level = 7},
 }
+```
 
 enqueue( item, priority )
 -------------------------
