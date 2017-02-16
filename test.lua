@@ -122,6 +122,13 @@ local cases = {
 		return bh:update('a', 0) and bh:peek() == 'a' and bh:remove('a') and (not bh:contains('a')) and (bh:update('c', 2)) and (not bh:update('z',5))
 	end,
 
+	contains_remove = function()
+		local bh = PriorityQueue()
+		bh:enqueue( 'a', 22 )
+		bh:enqueue( 'b', 33 )
+		return bh:contains('a') and #bh == 2 and bh:remove('a') and #bh == 1 and bh:remove('b') and #bh == 0
+	end,
+
 	custom_sort = function()
 		local two = {2}
 		local four = {4}

@@ -1,6 +1,6 @@
 --[[
 
- PriorityQueue - v1.0.0 - public domain Lua priority queue
+ PriorityQueue - v1.0.1 - public domain Lua priority queue
  implemented with indirect binary heap
  no warranty implied; use at your own risk
 
@@ -120,7 +120,7 @@ function PriorityQueue:enqueue( item, priority )
 	end
 	local size = self._size + 1
 	self._size = size	
-	items[size], priorities[size] = item, priority
+	items[size], priorities[size], indices[item] = item, priority, size
 	siftup( self, size ) 
 	return self
 end
