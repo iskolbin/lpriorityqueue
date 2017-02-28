@@ -1,13 +1,14 @@
 ![Build Status](https://travis-ci.org/iskolbin/priorityqueue.svg?branch=master)
 [![license](https://img.shields.io/badge/license-public%20domain-blue.svg)]()
 
-Priority Queue
-==============
+Lua priority queue
+==================
 
-Lua implementation of *priority queue* data structure using *indirect binary heap*. 
-Indirect heaps offer efficient removal and updating priority operations. This
-implementation is based on [binaryheap libary](github.com/iskolbin/binaryheap) with
-some changed design.
+Lua implementation of [priority queue](https://en.wikipedia.org/wiki/Priority_queue)
+data structure using indirect binary heap( which are basically 
+[binary heaps](https://en.wikipedia.org/wiki/Binary_heap) with efficient search).
+Indirect heaps offer efficient removal and updating priority operations. This implementation
+is based on [binaryheap libary](github.com/iskolbin/binaryheap) with some changed design.
 
 PriorityQueue.new( [array/ordering] )
 ---------------------------
